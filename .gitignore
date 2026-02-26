@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.venv/
+
+# Data
+data_pipeline/data_csv/
+data_pipeline/data_jsonl/
+*.pkl
+
+# FAISS
+index/
+
+# Models
+models/
+*.bin
+*.pt
+
+# Kaggle
+/kaggle/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
