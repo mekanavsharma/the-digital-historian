@@ -1,4 +1,4 @@
-# shared/embeddings/embeddings.py
+# shared/embeddings/embedders.py
 """
 Embedding wrapper that tries to use the LangChain/HuggingFace wrappers you used in the notebook.
 This file lives in shared/ because embeddings are reusable across phases.

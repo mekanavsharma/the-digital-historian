@@ -105,3 +105,11 @@ def build_prompt(
         """).strip()
 
     return prompt, chunk_ids
+
+
+def load_prompt(
+    question: str
+):
+    """
+    This will be used to re write the query and subquery decompose
+    """
