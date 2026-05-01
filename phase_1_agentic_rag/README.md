@@ -9,28 +9,39 @@ built with LangChain, FAISS, BM25, and LangGraph.
 
 ```
 digital_historian/
+├──phase_1_agentic_rag/
+│    │
+│    ├── common/                     # Shared utilities & configuration
+│    │   ├── __init__.py
+│    │   ├── graph.py               # nodes and edges defined for agents
+│    │   ├── historian_index.py     # Get FAISS index for specific historian
+│    │   ├── state.py               # Define LangGraph State
+│    │   └── utils.py               # OCR text normalisation, followup detection function
+│    │
+│    ├── tools/                      # All LangGraph nodes (one concern per file)
+│    │   ├── __init__.py
+│    │   ├── claim_aligner.py        # Multi-historian comparison (optional)
+│    │   ├── evaluator.py            # Evidence sufficiency check + router
+│    │   ├── final_synthesizer.py   # Grounded answer + memory update
+│    │   ├── memory_manager.py       # Follow-up detection + history management
+│    │   ├── planner.py              # Query decomposition → lanes
+│    │   ├── position_extractor.py   # Raw evidence → structured positions
+│    │   ├── query_rewriter.py       # Pronoun resolution via small LLM
+│    │   └── retriever_tool.py            # retrieve_context, retrieve_tool, retrieve_node
+│    │
+│    ├── __init__.py
+│    ├── README.md
+│    └── run_query.py                     # CLI entry point (--phase 1)
 │
-├── common/                     # Shared utilities & configuration
-│   ├── __init__.py
-│   ├── graph.py               # nodes and edges defined for agents
-│   ├── historian_index.py     # Get FAISS index for specific historian
-│   ├── state.py               # Define LangGraph State
-│   └── utils.py               # OCR text normalisation, followup detection function
-│
-├── tools/                      # All LangGraph nodes (one concern per file)
-│   ├── __init__.py
-│   ├── claim_aligner.py        # Multi-historian comparison (optional)
-│   ├── evaluator.py            # Evidence sufficiency check + router
-│   ├── final_synthesizer.py   # Grounded answer + memory update
-│   ├── memory_manager.py       # Follow-up detection + history management
-│   ├── planner.py              # Query decomposition → lanes
-│   ├── position_extractor.py   # Raw evidence → structured positions
-│   ├── query_rewriter.py       # Pronoun resolution via small LLM
-│   └── retriever_tool.py            # retrieve_context, retrieve_tool, retrieve_node
-│
-├── __init__.py
-└── run_query.py                     # CLI entry point (--phase 1)
-
+├── shared/
+│   ├── deploy/gradio_ui.py
+│   ├── embeddings/embeddings.py
+│   ├── evaluation/metrics.py
+│   ├── prompts/rag_prompts.py
+│   └── vector_store/vector_store.py
+├── eval/
+├── .gitignore
+└── README.md
 ```
 
 ```
@@ -101,13 +112,7 @@ Edit `common/config.py` to point `DATA_FOLDER`, `FAISS_INDEX_PATH`, and
 ### Phase 0 – one question
 
 ```bash
-python main.py --phase 0 --question "What were Bajirao's military innovations?"
-```
-
-### Phase 1 – one question
-
-```bash
-python -m phase_1.run_query --query "According to Romilla Thappar and RK Mukherjee how did Asoka rule upon his subjects" --answer_style concise --max_words 250
+python -m phase_0_rag_baseline.run_query --query "When did Ashoka become a Buddhist?" --answer_style concise
 ```
 
 ### Phase 1 – interactive multi-turn session

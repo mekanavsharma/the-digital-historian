@@ -81,7 +81,7 @@ Evaluating generation with retriever: HYBRID
 ## Project Structure
 
 ```
-/historyProject/
+/digital_historian/
 ├── index/
 │   ├── faiss/
 │   └── bm25.pkl
