@@ -1,0 +1,11 @@
+neo4j
+pandas
+networkx
+matplotlib
+pydantic
+tqdm
+langgraph
+transformers
+torch
+accelerate
+sentence-transformers

@@ -12,8 +12,9 @@ data_pipeline/data_csv/
 data_pipeline/data_jsonl/
 *.pkl
 
-# FAISS
+# Folders
 index/
+.vscode/
 
 # Models
 models/
