@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.jsonl
 .env
 venv/
 .venv/
@@ -10,10 +11,14 @@ venv/
 # Data
 data_pipeline/data_csv/
 data_pipeline/data_jsonl/
+data_pipeline/raft_book/
+data_pipeline/raft_train.jsonl
 *.pkl
 
 # Folders
 index/
+raft_env/
+phase_3_moe_raft/raft_finetuned/
 .vscode/
 
 # Models

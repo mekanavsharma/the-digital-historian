@@ -46,6 +46,8 @@ def load_jsonl_as_documents(jsonl_paths) -> List[Document]:
                             "chapter": row.get("chapter_title"),
                             "page": row.get("page"),
                             "historian": row.get("historian"),
+                            "expert_domain": row.get("expert_domain"),
+                            "historian_perspective": row.get("historian_perspective"),
                         },
                     )
                 )
