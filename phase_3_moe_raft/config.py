@@ -13,7 +13,7 @@ PHASE0_CHUNKS_META = os.path.join(BASE_DIR, "index", "chunks_meta.json")
 PHASE0_BM25_INDEX   = os.path.join(BASE_DIR, "index", "bm25.pkl")
 PHASE0_FAISS_INDEX  = os.path.join(BASE_DIR, "index", "faiss", "index.faiss")
 
-RAFT_TRAIN_JSON = os.path.join(BASE_DIR, "data_pipeline", "raft_train.jsonl")
+RAFT_TRAIN_JSON = os.path.join(BASE_DIR, "data_pipeline", "raft_data.jsonl")
 
 
 # Fine‑tuned RAFT model (after training)

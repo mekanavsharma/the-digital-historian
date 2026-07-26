@@ -77,7 +77,6 @@ def main():
                     model_path = RAFT_MODEL_PATH
                 else:
                     model_path = BASE_LLM_MODEL_PATH   # defined in config
-                print(f"Loading model: {model_path} ...")
                 model = RAFTModel(model_path=model_path)
                 print("Model loaded.")
             except Exception as e:

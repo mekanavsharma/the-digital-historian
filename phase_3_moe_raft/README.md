@@ -107,9 +107,27 @@ python -m phase_3_moe_raft.train_raft
 
 Reads `RAFT_TRAIN_JSON` from `config.py`, trains QLoRA on `Qwen2.5-1.5B-Instruct` (LoRA r=16, alpha=32, targeting all attention + MLP projections), and saves the adapter to `phase_3_moe_raft/raft_finetuned`.
 
-## Generate RAFT training data (optional)
+## Generate RAFT training data
 
-`raft_data_conversion.ipynb` runs on Kaggle: loads `Qwen3-4B-Instruct-2507` in fp16 and, per chunk, generates a question + answer + distractor documents, saved as JSONL for `train_raft.py` to consume.
+run `json_to_raft_conversion.ipynb` using vllm in kaggle: loads `Qwen3-4B-Instruct-2507` in fp16 and, per chunk, generates a question + answer + distractor documents, saved as JSONL for `train_raft.py` to consume.
+Here is the structure of the file it follows:
+
+```{
+  "instruction": "You are a helpful assistant. Use the provided documents to answer the question. If the answer cannot be found in the documents, say 'I don't know'.",
+  "documents": [
+    "### Document [1]: <distractor text...>",
+    "### Document [2]: <relevant text that contains the answer>",
+    "### Document [3]: <distractor...>",
+    "### Document [4]: <distractor...>",
+    "### Document [5]: <distractor...>"
+  ],
+  "question": "When did the Battle of Plassey take place?",
+  "output": "1757",
+  "perspective": "nationalist",
+  "historian": "Jadunath Sarkar",
+  "expert_domain": "Mughal decline"
+}
+```
 
 ## Notes
 

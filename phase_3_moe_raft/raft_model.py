@@ -26,6 +26,7 @@ class RAFTModel:
         if model_path is None:
             model_path = RAFT_MODEL_PATH
         self.debug = debug
+        model_path = os.path.abspath(model_path)
 
         # 4‑bit config for memory efficiency (optional – keeps model fast and small)
         bnb_config = BitsAndBytesConfig(
@@ -61,7 +62,14 @@ class RAFTModel:
 
             # Attach the LoRA adapter
             self.model = PeftModel.from_pretrained(self.model, model_path)
-            print(f"Loaded RAFT fine‑tuned model (base: {base_model_name})")
+            if "dpo_finetuned" in model_path:
+                model_desc = "DPO fine‑tuned model"
+            elif "raft_finetuned" in model_path:
+                model_desc = "RAFT fine‑tuned model"
+            else:
+                model_desc = "PEFT fine‑tuned model"
+            print(f"Loaded {model_desc} (base: {base_model_name})")
+            # print(f"Loaded {model_desc} (base: {base_model_name}) from {model_path}")
 
         else:
             # Load a regular model (or a fully merged model)

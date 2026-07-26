@@ -19,6 +19,7 @@ data_pipeline/raft_train.jsonl
 index/
 raft_env/
 phase_3_moe_raft/raft_finetuned/
+phase_4_rlhf_faithfulness/dpo_finetuned/
 .vscode/
 
 # Models
