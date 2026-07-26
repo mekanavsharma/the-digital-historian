@@ -11,13 +11,15 @@ venv/
 # Data
 data_pipeline/data_csv/
 data_pipeline/data_jsonl/
+data_pipeline/dpo_file/
 data_pipeline/raft_book/
-data_pipeline/raft_train.jsonl
+data_pipeline/raft_data.jsonl
 *.pkl
 
 # Folders
 index/
 raft_env/
+data_pipeline/helper_function/
 phase_3_moe_raft/raft_finetuned/
 phase_4_rlhf_faithfulness/dpo_finetuned/
 .vscode/
