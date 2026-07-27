@@ -17,7 +17,8 @@ The goal is to create a reliable RAG pipeline that answers complex historical qu
 | **Phase 1**  | ✅ Completed   | Agentic RAG, Query rewriting,  Chat Memory |
 | **Phase 2**   | ✅ Completed   | Graph RAG, tool use, multi-hop reasoning |
 | **Phase 3**   | ✅ Completed     | MoE & Retrieval Augmented Fine-Tuning |
-| **Phase 4**   | Planned    | RLHF & Self-Correction Loops |
+| **Phase 4**   | ✅ Completed    | RLHF & Self-Correction Loops |
+| **Phase 5**   | Planned    | MCP Server |
 
 ---
 
@@ -110,6 +111,25 @@ Since I’m learning these concepts on the go, the specifics of each phase are s
 
 ---
 
+---
+## 🧠 Phase 4 Highlights (RLHF & Faithfulness)
+- Inline citation-aware prompting ([n] markers)
+- DPO fine-tuning on top of the Phase 3 RAFT adapter
+- Self-correction loop (generate → critique → refine)
+- RAGAS-based evaluation across SFT-only / DPO / DPO+self-correct
+
+---
+
+## Features
+- **Citation-aware prompts** – requires inline [1], [2] markers tied to numbered ### Document [n] blocks, making faithfulness measurable
+- **Preference-data generation** – samples multiple candidate answers per question, scores them, keeps best/worst as a DPO pair
+- **DPO fine-tuning** – continues training from the Phase 3 RAFT adapter to reward faithful, well-cited answers
+- **Self-correction loop – generate → critique → refine, gated by a deterministic faithfulness score, not just the model's self-report
+- **RAGAS evaluation** – faithfulness, answer relevancy, context precision/recall, tracked across training stages
+
+---
+
+
 ## Quick Start
 
 ### 1. Installation
@@ -155,7 +175,7 @@ python -m phase_2_graph_rag.run_query --query "Who were associated with Abhinava
 python -m phase_2_graph_rag.run_query --visualize "Akbar"
 ```
 
-**Phase 2 – MoE RAFT**
+**Phase 3 – MoE RAFT**
 ```bash
 # Base model (no fine-tuning), compare all 3 perspectives, show retrieved docs
 python -m phase_3_moe_raft.run_query --query "What was the significance of Gandhi's Non-Cooperation Movement?" --compare --show-docs
@@ -166,6 +186,20 @@ python -m phase_3_moe_raft.run_query --query "Why was Bengal partitioned?" --com
 # Fine Tune model
 python -m phase_3_moe_raft.train_raft
 ```
+
+**Phase 3 – RLHF & Faithfulness**
+```bash
+# Build DPO preference data, then fine-tune on top of the Phase 3 adapter
+python -m phase_4_rlhf_faithfulness.preference_data_gen
+python -m phase_4_rlhf_faithfulness.train_dpo
+
+# Query with self-correction (DPO-tuned model by default)
+python -m phase_4_rlhf_faithfulness.run_query --query "Discuss Shah Jahan's architectural contributions."
+
+# Evaluate with RAGAS
+python -m phase_4_rlhf_faithfulness.ragas_eval --model-path phase_4_rlhf_faithfulness/dpo_finetuned --tag dpo
+```
+
 
 ## Repository Structure
 
@@ -178,6 +212,7 @@ historyProject/
 ├── phase_1_agentic_rag/      # Current working Phase-1 pipeline
 ├── phase_2_graph_rag/        # Current working Phase-2 pipeline
 ├── phase_3_moe_raft/         # Current working Phase-3 pipeline
+├── phase_4_rlhf_faithfulness/ # Current working Phase-4 pipeline
 ├── shared/                   # Reusable components (gradio, embeddings, prompts, etc.)
 ├── requirements.txt
 └── README.md
