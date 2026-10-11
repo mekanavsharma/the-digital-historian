@@ -23,8 +23,7 @@ The goal is to create a reliable RAG pipeline that answers complex historical qu
 ---
 
 ## The Journey 🚀
-I’m currently diving into the world of RAG (Retrieval-Augmented Generation). This project is a 5–6 months sprint broken down into roughly 7 phases.
-Since I’m learning these concepts on the go, the specifics of each phase are still a bit fluid. If you have experience with LLMs or vector databases and want to drop some knowledge, I’d love to have you along for the ride!
+This is a multi-phase build, with each phase documented, runnable from the CLI, and measured with a shared evaluation harness. Feedback from people working on RAG and LLMs would be greatly appreciated.
 
 ---
 ## 🧠 Phase 0 Highlights (Baseline)
@@ -96,13 +95,6 @@ Since I’m learning these concepts on the go, the specifics of each phase are s
 ---
 
 ## Features
-- **Multi‑source verification:** – cross‑checks graph, vector, and timeline evidence to reconcile historian disagreements
-- **Rule‑based extractor** – spaCy‑driven entity & relation extraction with strict filtering (period‑agnostic, works for ancient/medieval/modern history)
-- **Visualisation** – interactive HTML subgraph export (PyVis) for exploring relationships
-- **Reuses Phase 0/1 components** – hybrid retriever (BM25 + FAISS + reranker), shared prompt builder, and generation helper
-- **CLI support** – ingest, query, visualise, and force retrieval modes `--retrieval-mode`
-
-
 - **Query router** – classifies each query into a time domain (Ancient/Medieval/Modern) and a historian perspective (Nationalist/Marxist/Neutral)
 - **Expert-filtered retrieval** – wraps the phase 0 hybrid retriever and keeps only chunks matching the routed expert
 - **RAFT fine-tuning** – QLoRA adapter (Qwen2.5-3B-Instruct) trained to answer only from retrieved documents, ignoring distractors
@@ -187,7 +179,7 @@ python -m phase_3_moe_raft.run_query --query "Why was Bengal partitioned?" --com
 python -m phase_3_moe_raft.train_raft
 ```
 
-**Phase 3 – RLHF & Faithfulness**
+**Phase 4 – RLHF & Faithfulness**
 ```bash
 # Build DPO preference data, then fine-tune on top of the Phase 3 adapter
 python -m phase_4_rlhf_faithfulness.preference_data_gen

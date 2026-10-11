@@ -5,7 +5,7 @@ A clean, modular Retrieval-Augmented Generation (RAG) pipeline for India-specifi
 Built with:
 - **Hybrid retrieval** (BM25 + FAISS)
 - **Cross-encoder reranking**
-- **Qwen2.5-3B-Instruct** (quantized 4-bit)
+- **Qwen3-4B-Instruct** (quantized 4-bit)
 - **Strict citation grounding**
 
 ## Features
